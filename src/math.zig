@@ -499,10 +499,10 @@ pub fn Mat(comptime T: type, comptime size: comptime_int) type {
 
           return rot_z.mul(rot_y.mul(rot_x));
         }
-        pub fn initAsSymmetricPerspectiveProjection(near: f32, far: f32, win_w: f32, win_h: f32) Self {
+        pub fn initAsSymmetricPerspectiveProjection(fov: f32, near: f32, far: f32, win_w: f32, win_h: f32) Self {
           return .{ .values = .{
-            T.init(1.0/((win_w/win_h) * (PI/8.0)), 0.0, 0.0, 0.0),
-            T.init(0.0, 1.0/(PI/8.0), 0.0, 0.0),
+            T.init(1.0/((win_w/win_h) * fov), 0.0, 0.0, 0.0),
+            T.init(0.0, 1.0/fov, 0.0, 0.0),
             T.init(0.0, 0.0, (-far - near)/(far - near), -1.0),
             T.init(0.0, 0.0, -(2.0 * far * near)/(far - near), 0.0),
           }};
