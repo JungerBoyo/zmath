@@ -483,19 +483,19 @@ pub fn Mat(comptime T: type, comptime size: comptime_int) type {
 
         pub fn initAsRotationFromEulerAngles(angles: Vec3(T.UnderlyingType())) Self {
           const rot_x = if (angles.values[0] == 0.0) 
-              initDiagonal(1.0) 
+              Self.initDiagonal(1.0) 
             else 
-              initAsRotationFromUnitQuaternion(Quaternion(T.UnderlyingType()).init(.{ .values = .{1.0, 0.0, 0.0}}, angles.values[0]/2.0));
+              Self.initAsRotationFromUnitQuaternion(Quaternion(T.UnderlyingType()).init(.{ .values = .{1.0, 0.0, 0.0}}, angles.values[0]/2.0));
 
           const rot_y = if (angles.values[1] == 0.0) 
-              initDiagonal(1.0) 
+              Self.initDiagonal(1.0) 
             else 
-              initAsRotationFromUnitQuaternion(Quaternion(T.UnderlyingType()).init(.{ .values = .{0.0, 1.0, 0.0}}, angles.values[1]/2.0));
+              Self.initAsRotationFromUnitQuaternion(Quaternion(T.UnderlyingType()).init(.{ .values = .{0.0, 1.0, 0.0}}, angles.values[1]/2.0));
           
           const rot_z = if (angles.values[2] == 0.0) 
-              initDiagonal(1.0) 
+              Self.initDiagonal(1.0) 
             else 
-              initAsRotationFromUnitQuaternion(Quaternion(T.UnderlyingType()).init(.{ .values = .{0.0, 0.0, 1.0}}, angles.values[2]/2.0));
+              Self.initAsRotationFromUnitQuaternion(Quaternion(T.UnderlyingType()).init(.{ .values = .{0.0, 0.0, 1.0}}, angles.values[2]/2.0));
 
           return rot_z.mul(rot_y.mul(rot_x));
         }
